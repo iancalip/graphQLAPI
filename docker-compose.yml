@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  rest_api:
+    image: ruby:3.2.2
+    command: bash -c "cd /app && rm -rf tmp/pids && bin/setup && rails s -b 0.0.0.0"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./rest_api:/app
+      - rubygems:/usr/local/bundle
+    depends_on:
+      postgres:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+  
+  graphql_api:
+    image: ruby:3.2.2
+    command: bash -c "cd /app && rm -rf tmp/pids && bin/setup && rails s -b 0.0.0.0"
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./graphql_api:/app
+      - rubygems:/usr/local/bundle
+    depends_on:
+      - rest_api
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    healthcheck: 
+      test: ["CMD", "rabbitmqctl","await_startup"]
+      interval: 5s
+
+
+volumes:
+  rubygems:
+  database:
+  rabbitmq:
