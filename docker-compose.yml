@@ -44,6 +44,15 @@ services:
       test: ["CMD", "rabbitmqctl","await_startup"]
       interval: 5s
 
+  sneakers:
+    image: ruby:3.2.2
+    command: bash -c "cd /app && bundle exec sneakers work PolicyWorker --require ./app/workers/policy_worker.rb"
+    volumes:
+      - ./rest_api:/app
+      - rubygems:/usr/local/bundle
+    depends_on:
+      - rabbitmq
+      - postgres
 
 volumes:
   rubygems:

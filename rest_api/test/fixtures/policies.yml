@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  issued_date: 2024-02-26
+  end_coverage_date: 2024-02-26
+
+two:
+  issued_date: 2024-02-26
+  end_coverage_date: 2024-02-26
