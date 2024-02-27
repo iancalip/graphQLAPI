@@ -18,7 +18,7 @@ class PolicyWorker
       v.year = policy_data["veiculo"]["ano"]
     end
 
-    policy = Policy.create!(
+    Policy.create!(
       issued_date: policy_data["data_emissao"],
       end_coverage_date: policy_data["data_fim_emisssao"],
       insured: segurado,

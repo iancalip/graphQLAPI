@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Types
   class QueryType < Types::BaseObject
     field :node, Types::NodeType, null: true, description: "Fetches an object given its ID." do
@@ -18,14 +16,13 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    field :policy, Types::PolicyType, null: false do
+      argument :policy_id, ID, required: true
+    end
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    def policy(policy_id:)
+      response = HTTParty.get("http://rest_api:3000/policies/#{policy_id}")
+      JSON.parse(response.body)
     end
   end
 end
