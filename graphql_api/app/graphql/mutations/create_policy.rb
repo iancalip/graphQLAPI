@@ -1,25 +1,22 @@
 module Mutations
-  class CreatePolicy < BaseMutation
-    argument :issued_date, GraphQL::Types::ISO8601Date, required: true
-    argument :end_coverage_date, GraphQL::Types::ISO8601Date, required: true
-    argument :insured, Types::InsuredInputType, required: true
-    argument :vehicle, Types::VehicleInputType, required: true
+  class CreatePolicy < Mutations::BaseMutation
+    argument :policy, Types::PolicyInputType, required: true
 
-    type Types::PolicyType
+    field :result, String, null: false
 
-    def resolve(issued_date:, end_coverage_date:, insured:, vehicle:)
+    def resolve(policy:)
       policy_data = {
-        data_emissao: issued_date,
-        data_fim_cobertura: end_coverage_date,
-        segurado: {
-          name: insured[:nome],
-          cpf: insured[:cpf]
+        issued_date: policy[:data_emissao],
+        end_coverage_date: policy[:data_fim_cobertura],
+        insured: {
+          name: policy[:segurado][:nome],
+          cpf: policy[:segurado][:cpf]
         },
-        veiculo: {
-          brand: vehicle[:marca],
-          model: vehicle[:modelo],
-          year: vehicle[:ano],
-          plate: vehicle[:placa]
+        vehicle: {
+          brand: policy[:veiculo][:marca],
+          model: policy[:veiculo][:modelo],
+          year: policy[:veiculo][:ano],
+          plate: policy[:veiculo][:placa]
         }
       }
 
@@ -29,6 +26,7 @@ module Mutations
       exchange = channel.default_exchange
       exchange.publish(policy_data.to_json, routing_key: "policy_created")
       queue.close
+      {"result" => "OK"}
     end
   end
 end

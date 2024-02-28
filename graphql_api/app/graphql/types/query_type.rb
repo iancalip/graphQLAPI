@@ -16,7 +16,7 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    field :policy, Types::PolicyType, null: false do
+    field :policy, String, null: false do
       argument :policy_id, ID, required: true
     end
 
