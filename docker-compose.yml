@@ -57,6 +57,20 @@ services:
     depends_on:
       - rest_api
 
+  rspec:
+    image: ruby:3.2.2
+    volumes:
+      - ./graphql_api:/graphql_api 
+      - ./rest_api:/rest_api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    command:
+      bash -c "cd /graphql_api && bundle install && bundle exec rspec; cd / &&
+               cd /rest_api && bundle install && bundle exec rspec"
+
 volumes:
   rubygems:
   database:
