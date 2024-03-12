@@ -25,9 +25,9 @@ services:
   rest_api:
     image: ruby:3.2.2
     working_dir: /app
-    command: bash -c "rm -rf tmp/pids && bin/setup && rails s -b 0.0.0.0"
+    command: bash -c "rm -rf tmp/pids && bin/setup && rails s -b 0.0.0.0 -p 5000"
     ports:
-      - "3000:3000"
+      - "5000:5000"
     volumes:
       - ./rest_api:/app
       - rubygems:/usr/local/bundle
@@ -47,6 +47,32 @@ services:
       - rubygems:/usr/local/bundle
     depends_on:
       - rest_api
+
+  web_postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - web_database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+
+  web:
+    image: ruby:3.2.2
+    command: bash -c "cd /app && rm -rf tmp/pids && bin/setup && rails s -b 0.0.0.0"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web_app:/app
+      - rubygems:/usr/local/bundle
+    env_file:
+      - ./web_app/.env
+    depends_on:
+      web_postgres:
+        condition: service_healthy
 
   sneakers:
     image: ruby:3.2.2
@@ -74,4 +100,5 @@ services:
 volumes:
   rubygems:
   database:
+  web_database:
   rabbitmq:

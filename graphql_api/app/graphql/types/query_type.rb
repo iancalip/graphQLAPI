@@ -21,7 +21,7 @@ module Types
     end
 
     def policy(policy_id:)
-      response = HTTParty.get("http://rest_api:3000/policies/#{policy_id}")
+      response = HTTParty.get("http://rest_api:5000/policies/#{policy_id}")
       JSON.parse(response.body)
     end
   end
