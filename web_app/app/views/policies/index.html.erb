@@ -1,6 +1,27 @@
 <h1>Home</h1>
 <% if current_user %>
- <h2><%= current_user.email %></h2>
+ <h2><%= "Hello " + current_user.name %></h2>
+ <h3>Lista de Apólices</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Data Emissão</th>
+        <th>Segurado</th>
+        <th>Veículo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @policies.each do |policy| %>
+        <tr>
+          <td><%= policy["id"] %></td>
+          <td><%= policy["dataEmissao"] %></td>
+          <td><%= policy["segurado"]["nome"] %> - <%= policy["segurado"]["cpf"] %></td>
+          <td><%= policy["veiculo"]["marca"] %> <%= policy["veiculo"]["modelo"] %>, <%= policy["veiculo"]["ano"] %> - <%= policy["veiculo"]["placa"] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
  <%= link_to "Edit Account", edit_user_registration_path %>
  <%= button_to "Logout", destroy_user_session_path, data: {turbo: false}, method: :delete %>
 <% else %>
