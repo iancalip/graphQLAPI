@@ -30,6 +30,7 @@ gem "jbuilder"
 gem "devise"
 gem "omniauth"
 gem "omniauth-google-oauth2"
+gem "omniauth-cognito-idp"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "httparty"
 

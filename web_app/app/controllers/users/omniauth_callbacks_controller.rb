@@ -22,6 +22,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def cognito_idp
+    Rails.logger.info "OmniAuth Auth Hash: #{request.env["omniauth.auth"].inspect}"
+    user = User.from_omniauth(request.env["omniauth.auth"])
+
+    if user.persisted?
+      flash[:notice] = t "devise.omniauth_callbacks.success", kind: "Cognito"
+      sign_in_and_redirect user, event: :authentication
+    else
+      session["devise.cognito_idp_data"] = request.env["omniauth.auth"].except(:extra)
+      redirect_to new_user_session_path
+    end
+  end
+
   # More info at:
   # https://github.com/heartcombo/devise#omniauth
 
