@@ -13,24 +13,22 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user.present?
       sign_out_all_scopes
-      flash[:success] = t "devise.omniauth_callbacks.success", kind: "Google"
+      flash[:success] = "Successfully authenticated from Google account."
       sign_in_and_redirect user, event: :authentication
     else
-      flash[:alert] = t "devise.omniauth_callbacks.failure",
-        kind: "Google", reason: "#{auth.info.email} is not authorized"
+      flash[:alert] = "Authentication via Google failed."
       redirect_to new_user_session_path
     end
   end
 
   def cognito_idp
-    Rails.logger.info "OmniAuth Auth Hash: #{request.env["omniauth.auth"].inspect}"
     user = User.from_omniauth(request.env["omniauth.auth"])
 
     if user.persisted?
-      flash[:notice] = t "devise.omniauth_callbacks.success", kind: "Cognito"
+      flash[:success] = "Successfully authenticated from Cognito account."
       sign_in_and_redirect user, event: :authentication
     else
-      session["devise.cognito_idp_data"] = request.env["omniauth.auth"].except(:extra)
+      flash[:alert] = "Authentication via Cognito failed."
       redirect_to new_user_session_path
     end
   end

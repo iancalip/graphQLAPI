@@ -28,10 +28,12 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, ENV["GOOGLE_OAUTH_CLIENT_ID"], ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
   config.omniauth :cognito_idp, ENV["COGNITO_CLIENT_ID"], ENV["COGNITO_CLIENT_SECRET"], {
     client_options: {
-      site: ENV["COGNITO_SITE_URL"],
-      user_pool_id: ENV["COGNITO_POOL_ID"]
+      site: ENV["COGNITO_SITE_URL"]
     },
-    scope: "email openid"
+    name: "cognito_idp",
+    user_pool_id: ENV["COGNITO_POOL_ID"],
+    scope: "email openid",
+    region: ENV["AWS_REGION"]
   }
 
   # Configure the class responsible to send e-mails.
