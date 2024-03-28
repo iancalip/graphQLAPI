@@ -2,11 +2,11 @@ class PolicyService
   include HTTParty
   base_uri "http://graphql_api:4000/graphql"
 
-  def self.fetch_policies
-    query = {
-      query: <<-GRAPHQL
-        query {
-          policies {
+  def self.fetch_policies(jwt_token)
+    body = {
+      query: <<-GRAPHQL,
+        query GetPolicies($jwtToken: String!) {
+          policies(jwtToken: $jwtToken) {
             policyId
             dataEmissao
             dataFimCobertura
@@ -23,13 +23,18 @@ class PolicyService
           }
         }
       GRAPHQL
-    }
+      variables: { jwtToken: jwt_token }
+    }.to_json
 
-    response = post("/", body: query.to_json, headers: {"Content-Type" => "application/json"})
+    response = post("/", body: body, headers: {"Content-Type" => "application/json"})
     p response.body
     JSON.parse(response.body)["data"]["policies"]
   rescue => e
-    puts "Erros while fetching policies: #{e.message}"
+    puts "Errors while fetching policies: #{e.message}"
     []
   end
 end
+
+
+
+

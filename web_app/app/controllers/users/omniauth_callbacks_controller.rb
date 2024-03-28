@@ -14,6 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user.present?
       sign_out_all_scopes
       flash[:success] = "Successfully authenticated from Google account."
+      set_jwt_cookie_for(user)
       sign_in_and_redirect user, event: :authentication
     else
       flash[:alert] = "Authentication via Google failed."
@@ -26,6 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user.persisted?
       flash[:success] = "Successfully authenticated from Cognito account."
+      set_jwt_cookie_for(user)
       sign_in_and_redirect user, event: :authentication
     else
       flash[:alert] = "Authentication via Cognito failed."
