@@ -45,6 +45,8 @@ services:
     volumes:
       - ./graphql_api:/app
       - rubygems:/usr/local/bundle
+    env_file:
+      - ./graphql_api/.env
     depends_on:
       - rest_api
 

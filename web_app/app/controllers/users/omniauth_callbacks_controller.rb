@@ -15,6 +15,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_out_all_scopes
       flash[:success] = "Successfully authenticated from Google account."
       sign_in_and_redirect user, event: :authentication
+      session[:jwt] = user.generate_jwt
+      puts "Generated JWT: #{session[:jwt]}"
     else
       flash[:alert] = "Authentication via Google failed."
       redirect_to new_user_session_path
@@ -27,6 +29,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user.persisted?
       flash[:success] = "Successfully authenticated from Cognito account."
       sign_in_and_redirect user, event: :authentication
+      session[:jwt] = user.generate_jwt
+      Rails.logger.info "Generated JWT: #{session[:jwt]}"
     else
       flash[:alert] = "Authentication via Cognito failed."
       redirect_to new_user_session_path

@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable,
     :omniauthable, omniauth_providers: [:google_oauth2, :cognito_idp]
@@ -12,5 +10,10 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.avatar_url = auth.info.image
     end
+  end
+
+  def generate_jwt
+    payload = {user_id: id, exp: 24.hours.from_now.to_i}
+    JWT.encode(payload, ENV["JWT_SECRET"], "HS256")
   end
 end
