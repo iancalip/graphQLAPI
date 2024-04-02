@@ -7,8 +7,13 @@ class ApplicationController < ActionController::Base
   def authenticate_request
     auth_header = request.headers["Authorization"]
     token = auth_header.split(" ").last if auth_header
-    JWT.decode(token, ENV["JWT_SECRET"], true, {algorithm: "HS256"})
+    p "TOKEN: #{token}"
+    payload, = JWT.decode(token, ENV["JWT_SECRET"], true, {algorithm: "HS256"})[0]
+    @current_user = {payload: payload, jwt: token}
   rescue JWT::DecodeError => e
+    puts "Error while decoding token: #{e.message}"
     render json: {errors: "Invalid Token"}, status: :unauthorized
   end
+
+  attr_reader :current_user
 end

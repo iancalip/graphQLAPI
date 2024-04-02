@@ -34,7 +34,7 @@ class PolicyService
     p response.body
     JSON.parse(response.body).dig("data", "policies") || []
   rescue => e
-    puts "Erros while fetching policies: #{e.message}"
+    puts "Error while fetching policies: #{e.message}"
     []
   end
 end
