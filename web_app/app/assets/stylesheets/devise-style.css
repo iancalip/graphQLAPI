@@ -1,0 +1,105 @@
+.field {
+  margin-top: 15px;
+}
+
+.field label {
+  margin-bottom: 10px;
+  display: block;
+  color: #c7c7c7;
+}
+
+.field i {
+  margin-bottom: 10px;
+  display: block;
+  color: #0b91e5;
+}
+
+.field em {
+  margin: 10px;
+  display: block;
+  color: #0b91e5;
+}
+
+
+.field input {
+  width: 100%;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  box-sizing: border-box;
+  background-color:#565555;
+  color: white;
+}
+
+.actions input[type="submit"] {
+  width: 100%;
+  background-color: #22805a;
+  color: rgb(255, 255, 255);
+  padding: 8px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.actions input[type="submit"]:hover {
+  background-color: #2fa274;
+}
+
+.devise-link {
+  display: inline-block;
+  margin: 5px 0;
+  padding: 10px;
+  color: #ffffff;
+  background-color: #444;
+  text-decoration: none;
+  border-radius: 25px;
+}
+
+.devise-link:hover {
+  background-color: #555;
+}
+
+.devise-button-cognito {
+  display: inline-block;
+  width: auto;
+  margin: 5px 0;
+  padding: 10px 15px;
+  background-color: #005cf1;
+  color: #ffffff;
+  text-align: center;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.devise-button-cognito:hover {
+  background-color: #2271ef;
+}
+
+.login-box {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.new_user, .edit_user {
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.checkbox-inline {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.checkbox-inline label {
+  margin-right: 10px;
+}
