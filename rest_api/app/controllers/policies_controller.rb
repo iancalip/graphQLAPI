@@ -24,6 +24,7 @@ class PoliciesController < ApplicationController
       policy_id: policy.id,
       data_emissao: policy.issued_date,
       data_fim_cobertura: policy.end_coverage_date,
+      status: policy.status,
       segurado: {
         nome: policy.insured.name,
         cpf: policy.insured.cpf

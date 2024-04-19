@@ -4,5 +4,6 @@ module Types
     argument :data_fim_cobertura, GraphQL::Types::ISO8601Date, required: true
     argument :segurado, Types::InsuredInputType, required: true
     argument :veiculo, Types::VehicleInputType, required: true
+    argument :status, Types::PolicyStatusEnum, required: false, default_value: "pendente"
   end
 end

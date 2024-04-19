@@ -12,6 +12,7 @@
           <th>Veículo</th>
           <th>Ano</th>
           <th>Placa</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,13 @@
             <td><%= policy["veiculo"]["marca"] %> <%= policy["veiculo"]["modelo"] %></td>
             <td><%= policy["veiculo"]["ano"] %></td>
             <td><%= policy["veiculo"]["placa"] %></td>
+            <td>
+              <% if policy["status"] == "pago" %>
+                Pago
+              <% else %>
+                <%= link_to "Pagar", new_payment_path(policy_id: policy["policyId"]), class: "payment-link" %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

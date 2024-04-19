@@ -8,6 +8,7 @@ module Mutations
       policy_data = {
         issued_date: policy[:data_emissao],
         end_coverage_date: policy[:data_fim_cobertura],
+        status: policy[:data_status],
         insured: {
           name: policy[:segurado][:nome],
           cpf: policy[:segurado][:cpf]

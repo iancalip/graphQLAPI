@@ -5,5 +5,6 @@ module Types
     field :data_fim_cobertura, GraphQL::Types::ISO8601Date
     field :segurado, Types::InsuredType
     field :veiculo, Types::VehicleType
+    field :status, PolicyStatusEnum
   end
 end

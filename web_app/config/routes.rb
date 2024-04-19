@@ -6,12 +6,11 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  resources :payments
-  post "payments/create"
-  get "payments/success"
-  get "payments/cancel"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :payments, only: [:new, :show] do
+    collection do
+      post "create"
+      get "success"
+      get "cancel"
+    end
+  end
 end

@@ -10,6 +10,7 @@ class PolicyService
             policyId
             dataEmissao
             dataFimCobertura
+            status
             segurado {
               nome
               cpf
