@@ -1,4 +1,5 @@
 class PoliciesController < ApplicationController
+  before_action :set_policy, only: [:show, :update, :destroy]
   def index
     policies = Policy.all
     if policies
@@ -9,15 +10,26 @@ class PoliciesController < ApplicationController
   end
 
   def show
-    policy = Policy.find_by(id: params[:policy_id])
-    if policy
+    if @policy
       render json: policy_json(policy)
     else
       render json: {error: "Policy not found"}, status: :not_found
     end
   end
 
+  def update
+    if @policy.update(policy_params)
+      render json: policy_json(policy)
+    else
+      render json: {error: "Policy not updated"}, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def set_policy
+    @policy = Policy.find_by(id: params[:id])
+  end
 
   def policy_json(policy)
     {
@@ -36,5 +48,9 @@ class PoliciesController < ApplicationController
         placa: policy.vehicle.plate
       }
     }
+  end
+
+  def policy_params
+    params.require(:policy).permit(:status)
   end
 end
