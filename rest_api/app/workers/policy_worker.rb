@@ -5,10 +5,15 @@ class PolicyWorker
   from_queue "policy_created"
 
   def work(raw_policy)
+    p ":::::::::::::: POLICY RECEIVED ::::::::::::::"
     policy_data = JSON.parse(raw_policy)
+
     policy = Policy.create!(
       issued_date: policy_data["issued_date"],
-      end_coverage_date: policy_data["end_coverage_date"]
+      end_coverage_date: policy_data["end_coverage_date"],
+      status: policy_data["status"],
+      payment_id: policy_data["payment_id"],
+      payment_link: policy_data["payment_link"]
     )
     puts "Policy created: #{policy.id}"
 
