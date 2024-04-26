@@ -15,23 +15,23 @@ class PolicyWorker
       payment_id: policy_data["payment_id"],
       payment_link: policy_data["payment_link"]
     )
-    puts "Policy created: #{policy.id}"
+    puts "Policy created: #{policy.inspect}"
 
-    Insured.find_or_create_by(
-      policy:,
+    insured = Insured.find_or_create_by(
+      policy: policy,
       name: policy_data["insured"]["name"],
       cpf: policy_data["insured"]["cpf"]
     )
-    puts "Insured associated: #{Insured.last.id}"
+    puts "Insured associated: #{insured.inspect}"
 
-    Vehicle.find_or_create_by(
+    vehicle = Vehicle.find_or_create_by(
       policy:,
       plate: policy_data["vehicle"]["plate"],
       model: policy_data["vehicle"]["model"],
       brand: policy_data["vehicle"]["brand"],
       year: policy_data["vehicle"]["year"]
     )
-    puts "Vehicle associated: #{Vehicle.last.id}"
+    puts "Vehicle associated: #{vehicle.inspect}"
 
     ack!
   end

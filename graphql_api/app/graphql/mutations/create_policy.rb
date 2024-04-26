@@ -6,17 +6,20 @@ module Mutations
 
     def resolve(policy:)
       policy_data = {
-        issued_date: policy[:data_emissao],
-        end_coverage_date: policy[:data_fim_cobertura],
+        issued_date: policy[:issued_date],
+        end_coverage_date: policy[:end_coverage_date],
+        status: policy[:status],
+        payment_id: policy[:payment_id],
+        payment_link: policy[:payment_link],
         insured: {
-          name: policy[:segurado][:nome],
-          cpf: policy[:segurado][:cpf]
+          name: policy[:insured][:name],
+          cpf: policy[:insured][:cpf]
         },
         vehicle: {
-          brand: policy[:veiculo][:marca],
-          model: policy[:veiculo][:modelo],
-          year: policy[:veiculo][:ano],
-          plate: policy[:veiculo][:placa]
+          brand: policy[:vehicle][:brand],
+          model: policy[:vehicle][:model],
+          year: policy[:vehicle][:year],
+          plate: policy[:vehicle][:plate]
         }
       }
 

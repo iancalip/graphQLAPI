@@ -13,17 +13,17 @@ RSpec.describe "CreatePolicy Mutation", type: :request do
       mutation {
         createPolicy(input: {
           policy: {
-            dataEmissao: "2024-01-06",
-            dataFimCobertura: "2025-05-22",
-            segurado: {
-              nome: "John Silva",
+            issuedDate: "2024-01-06",
+            endCoverageDate: "2025-05-22",
+            insured: {
+              name: "John Silva",
               cpf: "001.002.003-90"
             },
-            veiculo: {
-              marca: "Fiat",
-              modelo: "Uno 1.0",
-              ano: "2020",
-              placa: "ABC-1234"
+            vehicle: {
+              brand: "Fiat",
+              model: "Uno 1.0",
+              year: "2020",
+              plate: "ABC-1234"
             }
           }
         }) {

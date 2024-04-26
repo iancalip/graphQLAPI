@@ -5,24 +5,30 @@
   <h3>Lista de Apólices</h3>
     <table class="home-table">
       <thead>
-        <tr>
-          <th>Data Emissão</th>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Veículo</th>
-          <th>Ano</th>
-          <th>Placa</th>
-        </tr>
+        <th>ID</th>
+        <th>Insured Name</th>
+        <th>CPF</th>
+        <th>Vehicle Plate</th>
+        <th>Vehicle Brand and Model</th>
+        <th>Insured at</th>
+        <th>Insured until</th>
+        <th>Status</th>
+        <th>Payment Link</th>
       </thead>
       <tbody>
         <% @policies.each do |policy| %>
           <tr>
-            <td><%= policy["dataEmissao"] %></td>
-            <td><%= policy["segurado"]["nome"] %></td>
-            <td><%= policy["segurado"]["cpf"] %></td>
-            <td><%= policy["veiculo"]["marca"] %> <%= policy["veiculo"]["modelo"] %></td>
-            <td><%= policy["veiculo"]["ano"] %></td>
-            <td><%= policy["veiculo"]["placa"] %></td>
+            <td><%= policy[:id] %></td>
+            <td><%= policy[:insured][:name] %></td>
+            <td><%= policy[:insured][:cpf] %></td>
+            <td><%= policy[:vehicle][:plate] %></td>
+            <td><%= policy[:vehicle][:brand] %> <%= policy[:vehicle][:model] %></td>
+            <td><%= policy[:insuredAt] %></td>
+            <td><%= policy[:insuredUntil] %></td>
+            <td id="status-<%= policy[:id] %>"><%= policy[:status] %></td>
+            <td style="max-width: 200px; overflow: hidden;">
+              <a href="<%= policy[:paymentLink] %>" target="_blank"><%= policy[:paymentLink] %></a>
+            </td>
           </tr>
         <% end %>
       </tbody>

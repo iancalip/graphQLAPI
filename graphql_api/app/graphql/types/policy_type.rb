@@ -1,9 +1,12 @@
 module Types
   class PolicyType < Types::BaseObject
-    field :policy_id, ID, null: false
-    field :data_emissao, GraphQL::Types::ISO8601Date
-    field :data_fim_cobertura, GraphQL::Types::ISO8601Date
-    field :segurado, Types::InsuredType
-    field :veiculo, Types::VehicleType
+    field :id, ID, null: false
+    field :issued_date, GraphQL::Types::ISO8601Date
+    field :end_coverage_date, GraphQL::Types::ISO8601Date
+    field :status, Integer
+    field :payment_id, String
+    field :payment_link, String
+    field :insured, Types::InsuredType
+    field :vehicle, Types::VehicleType
   end
 end
