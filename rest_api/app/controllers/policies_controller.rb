@@ -1,9 +1,9 @@
 class PoliciesController < ApplicationController
   before_action :set_policy, only: [:show, :update, :destroy]
   def index
-    @policies = Policy.all
-    if @policies
-      render json: @policies.sort_by(&:id)
+    @policies = Policy.includes(:insured, :vehicle).all
+    if @policies.any?
+      render json: @policies, include: [:insured, :vehicle]
     else
       render json: {error: "Policies not found"}, status: :not_found
     end
@@ -28,7 +28,7 @@ class PoliciesController < ApplicationController
 
   def show
     if @policy
-      render json: @policy
+      render json: @policy, include: [:vehicle, :insured]
     else
       render json: {error: "Policy not found"}, status: :not_found
     end

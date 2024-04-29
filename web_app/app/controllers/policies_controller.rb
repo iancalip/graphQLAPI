@@ -4,7 +4,7 @@ class PoliciesController < ApplicationController
   def index
     sleep(1)
     return nil if policies_list.nil?
-    @policies = policies_list.reverse
+    @policies = policies_list
   end
 
   def new
@@ -38,7 +38,7 @@ class PoliciesController < ApplicationController
 
   def policies_list
     response = send_to_graphql(Graphql::Queries.get_policies)
-    puts response.body
-    JSON.parse(response.body, symbolize_names: true)[:data][:policies]
+    puts "resposta é" + response.body
+    JSON.parse(response.body)
   end
 end
