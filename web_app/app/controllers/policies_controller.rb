@@ -38,7 +38,9 @@ class PoliciesController < ApplicationController
 
   def policies_list
     response = send_to_graphql(Graphql::Queries.get_policies)
-    puts "resposta é" + response.body
-    JSON.parse(response.body)
+    response
+      .parsed_response
+      .dig("data", "policies")
+      .map { |hash| hash.with_indifferent_access }
   end
 end

@@ -23,8 +23,8 @@
             <td><%= policy[:insured][:cpf] %></td>
             <td><%= policy[:vehicle][:plate] %></td>
             <td><%= policy[:vehicle][:brand] %> <%= policy[:vehicle][:model] %></td>
-            <td><%= policy[:insuredAt] %></td>
-            <td><%= policy[:insuredUntil] %></td>
+            <td><%= policy[:issuedDate] %></td>
+            <td><%= policy[:endCoverageDate] %></td>
             <td id="status-<%= policy[:id] %>"><%= policy[:status] %></td>
             <td style="max-width: 200px; overflow: hidden;">
               <a href="<%= policy[:paymentLink] %>" target="_blank"><%= policy[:paymentLink] %></a>

@@ -10,7 +10,7 @@ module Mutations
       queue.start
       channel = queue.create_channel
       exchange = channel.default_exchange
-      exchange.publish(policy_data.to_json, routing_key: "policy_created")
+      exchange.publish(policy.to_json, routing_key: "policy_created")
       queue.close
       {"result" => "OK"}
     end

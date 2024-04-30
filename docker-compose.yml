@@ -72,6 +72,8 @@ services:
     volumes:
       - ./web_app:/app
       - rubygems:/usr/local/bundle
+    tty: true
+    stdin_open: true
     env_file:
       - ./web_app/.env
     depends_on:
