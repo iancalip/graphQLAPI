@@ -2,7 +2,8 @@
   <h1>Home</h1>
   <% if current_user %>
   <h2><%= "Hello " + current_user.name %></h2>
-  <h3>Lista de Apólices</h3>
+  <%= link_to "Edit Account", edit_user_registration_path, class: "home-link" %>
+  <h3>Policies List</h3>
     <table class="home-table">
       <thead>
         <th>ID</th>
@@ -33,7 +34,7 @@
         <% end %>
       </tbody>
     </table>
-  <%= link_to "Edit Account", edit_user_registration_path, class: "home-link" %>
+  <%= link_to 'Create Policy', new_policy_path, class: "home-link" %>
   <%= button_to "Logout", destroy_user_session_path,class: "home-button", data: {turbo: false}, method: :delete %>
   <% else %>
     <%= link_to "Login", new_user_session_path %>
