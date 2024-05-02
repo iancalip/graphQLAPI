@@ -13,6 +13,8 @@ module Mutations
       exchange.publish(policy.to_json, routing_key: "policy_created")
       queue.close
       {"result" => "OK"}
+    rescue => exception
+      raise GraphQL::ExecutionError.new(exception.message)
     end
   end
 end

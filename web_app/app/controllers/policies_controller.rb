@@ -38,6 +38,7 @@ class PoliciesController < ApplicationController
 
   def policies_list
     response = send_to_graphql(Graphql::Queries.get_policies)
+    return nil if response.parsed_response.dig("data", "policies").nil?
     response
       .parsed_response
       .dig("data", "policies")

@@ -28,6 +28,7 @@ services:
     command: bash -c "rm -rf tmp/pids && bin/setup && rails s -b 0.0.0.0 -p 5000"
     ports:
       - "5000:5000"
+    tty: true
     volumes:
       - ./rest_api:/app
       - rubygems:/usr/local/bundle
