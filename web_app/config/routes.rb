@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     sessions: "users/sessions",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :policies
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :payments, only: [:new, :create]
+  get "payments/success"
+  get "payments/cancel"
 end

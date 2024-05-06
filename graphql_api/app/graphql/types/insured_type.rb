@@ -1,6 +1,7 @@
 module Types
   class InsuredType < Types::BaseObject
-    field :nome, String, null: false
+    field :id, ID, null: false
+    field :name, String, null: false
     field :cpf, String, null: false
   end
 end
