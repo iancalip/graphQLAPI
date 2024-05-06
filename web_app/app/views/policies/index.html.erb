@@ -2,32 +2,43 @@
   <h1>Home</h1>
   <% if current_user %>
   <h2><%= "Hello " + current_user.name %></h2>
-  <h3>Lista de Apólices</h3>
+  <%= link_to "Edit Account", edit_user_registration_path, class: "home-link" %>
+  <h3>Policies List</h3>
+  <% if @policies %>
     <table class="home-table">
       <thead>
-        <tr>
-          <th>Data Emissão</th>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Veículo</th>
-          <th>Ano</th>
-          <th>Placa</th>
-        </tr>
+        <th>ID</th>
+        <th>Insured Name</th>
+        <th>CPF</th>
+        <th>Vehicle Plate</th>
+        <th>Vehicle Brand and Model</th>
+        <th>Insured at</th>
+        <th>Insured until</th>
+        <th>Status</th>
+        <th>Payment Link</th>
       </thead>
       <tbody>
         <% @policies.each do |policy| %>
           <tr>
-            <td><%= policy["dataEmissao"] %></td>
-            <td><%= policy["segurado"]["nome"] %></td>
-            <td><%= policy["segurado"]["cpf"] %></td>
-            <td><%= policy["veiculo"]["marca"] %> <%= policy["veiculo"]["modelo"] %></td>
-            <td><%= policy["veiculo"]["ano"] %></td>
-            <td><%= policy["veiculo"]["placa"] %></td>
+            <td><%= policy[:id] %></td>
+            <td><%= policy[:insured][:name] %></td>
+            <td><%= policy[:insured][:cpf] %></td>
+            <td><%= policy[:vehicle][:plate] %></td>
+            <td><%= policy[:vehicle][:brand] %> <%= policy[:vehicle][:model] %></td>
+            <td><%= policy[:issuedDate] %></td>
+            <td><%= policy[:endCoverageDate] %></td>
+            <td id="status-<%= policy[:id] %>"><%= policy[:status] %></td>
+            <td style="max-width: 200px; overflow: hidden;">
+              <a href="<%= policy[:paymentLink] %>" target="_blank"><%= policy[:paymentLink] %></a>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
-  <%= link_to "Edit Account", edit_user_registration_path, class: "home-link" %>
+    <% else %>
+      <p> No Policies were found </p>
+    <% end %>
+  <%= link_to 'Create Policy', new_policy_path, class: "home-link" %>
   <%= button_to "Logout", destroy_user_session_path,class: "home-button", data: {turbo: false}, method: :delete %>
   <% else %>
     <%= link_to "Login", new_user_session_path %>

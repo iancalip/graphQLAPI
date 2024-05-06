@@ -1,0 +1,51 @@
+<div class="home-container">
+  <h2>CREATE POLICY</h2>
+  <div style="margin: 0px auto; max-width: 720px;" class="container">
+    <%= form_with url: policies_path do |form| %>
+      <div class="field">
+        <%= form.label :insured_name, 'Name', class: 'label' %>
+        <%= form.text_field :insured_name, required: true, class: 'field input' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :insured_cpf, 'CPF', class: 'label' %>
+        <%= form.text_field :insured_cpf, required: true, class: 'input' %>
+      </div>
+  
+      <div class="field">
+        <%= form.label :issued_date, 'Insured at:', class: 'label' %>
+        <%= form.date_field :issued_date,required: true, class: 'input' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :end_coverage_date, 'Insured Until:', class: 'label' %>
+        <%= form.date_field :end_coverage_date,required: true, class: 'input' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :vehicle_plate, 'Vehicle Plate:', class: 'label' %>
+        <%= form.text_field :vehicle_plate, required: true, class: 'input' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :vehicle_brand, 'Vehicle Brand:', class: 'label' %>
+        <%= form.text_field :vehicle_brand, required: true, class: 'input' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :vehicle_model, 'Vehicle Model:', class: 'label' %>
+        <%= form.text_field :vehicle_model, required: true, class: 'input' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :vehicle_year, 'Vehicle Year:', class: 'label' %>
+        <%= form.number_field :vehicle_year, required: true, class: 'input' %>
+      </div>
+
+      <div class="actions">
+        <br />
+        <%= form.submit 'Create Policy' %>
+      </div>
+    <% end %>
+  </div>
+</div>

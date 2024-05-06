@@ -1,39 +1,50 @@
 class PoliciesController < ApplicationController
+  before_action :set_policy, only: [:show, :update, :destroy]
   def index
-    policies = Policy.all
-    if policies
-      render json: policies.map { |policy| policy_json(policy) }
+    @policies = Policy.includes(:insured, :vehicle).all
+    if @policies.any?
+      render json: @policies, include: [:insured, :vehicle]
     else
       render json: {error: "Policies not found"}, status: :not_found
     end
   end
 
+  def create
+    @policy = Policy.new(policy_params)
+    if @policy.save
+      render json: @policy, status: :created
+    else
+      render json: @policy.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @policy.update(policy_params)
+      render json: @policy
+    else
+      render json: @policy.errors, status: :unprocessable_entity
+    end
+  end
+
   def show
-    policy = Policy.find_by(id: params[:policy_id])
-    if policy
-      render json: policy_json(policy)
+    if @policy
+      render json: @policy, include: [:vehicle, :insured]
     else
       render json: {error: "Policy not found"}, status: :not_found
     end
   end
 
+  def destroy
+    @policy.destroy
+  end
+
   private
 
-  def policy_json(policy)
-    {
-      policy_id: policy.id,
-      data_emissao: policy.issued_date,
-      data_fim_cobertura: policy.end_coverage_date,
-      segurado: {
-        nome: policy.insured.name,
-        cpf: policy.insured.cpf
-      },
-      veiculo: {
-        marca: policy.vehicle.brand,
-        modelo: policy.vehicle.model,
-        ano: policy.vehicle.year,
-        placa: policy.vehicle.plate
-      }
-    }
+  def set_policy
+    @policy = Policy.find(params[:id])
+  end
+
+  def policy_params
+    params.require(:policy).permit(:issued_date, :end_coverage_date, :status, :payment_id, :payment_link, :insured, :vehicle)
   end
 end

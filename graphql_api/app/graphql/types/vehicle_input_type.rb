@@ -1,8 +1,8 @@
 module Types
   class VehicleInputType < Types::BaseInputObject
-    argument :placa, String, required: true
-    argument :modelo, String, required: true
-    argument :ano, String, required: true
-    argument :marca, String, required: true
+    argument :plate, String, required: true
+    argument :model, String, required: true
+    argument :year, String, required: true
+    argument :brand, String, required: true
   end
 end

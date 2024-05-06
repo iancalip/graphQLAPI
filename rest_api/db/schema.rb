@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_26_191639) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_24_152053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_26_191639) do
     t.date "end_coverage_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.string "payment_id"
+    t.string "payment_link"
   end
 
   create_table "vehicles", force: :cascade do |t|
