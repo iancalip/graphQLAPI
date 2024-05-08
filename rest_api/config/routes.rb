@@ -4,6 +4,5 @@ Rails.application.routes.draw do
   get "/", to: "policies#index"
   resources :insureds, only: %i[index show]
   resources :vehicles, only: %i[index show]
-  # Defines the root path route ("/")
-  # root "articles#index"
+  post "/webhooks" => "webhooks#update"
 end

@@ -10,4 +10,10 @@ class PaymentsController < ApplicationController
   def cancel
     redirect_to policies_path, notice: "Falha ao efetuar pagamento!"
   end
+
+  private
+
+  def live_confirm
+    ActionCable.server.broadcast("PaymentUpdatesChannel", params.to_json)
+  end
 end

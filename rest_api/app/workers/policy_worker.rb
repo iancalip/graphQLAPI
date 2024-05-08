@@ -4,9 +4,9 @@ class PolicyWorker
   include Sneakers::Worker
   from_queue "policy_created"
 
-  def work(raw_policy)
+  def work(msg)
     p ":::::::::::::: POLICY RECEIVED ::::::::::::::"
-    policy_data = JSON.parse(raw_policy, symbolize_names: true)
+    policy_data = JSON.parse(msg, symbolize_names: true)
 
     ActiveRecord::Base.connection_pool.with_connection do
       policy = Policy.create!(
