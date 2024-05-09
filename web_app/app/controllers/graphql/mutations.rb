@@ -4,7 +4,7 @@ module Graphql::Mutations
       query: "mutation createPolicy(
         $issuedDate: ISO8601Date!
         $endCoverageDate: ISO8601Date!
-        $status: Int!
+        $status: String!
         $paymentId: String!
         $paymentLink: String!
         $insuredName: String!
@@ -40,7 +40,7 @@ module Graphql::Mutations
       variables: {
         issuedDate: Date.parse(params[:issued_date]).iso8601,
         endCoverageDate: Date.parse(params[:end_coverage_date]).iso8601,
-        status: 0,
+        status: "pending",
         paymentId: payment_id,
         paymentLink: payment_url,
         insuredName: params[:insured_name],

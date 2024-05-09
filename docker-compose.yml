@@ -57,7 +57,7 @@ services:
   ngrok:
     image: ngrok/ngrok:alpine
     container_name: ngrok
-    command: http --domain=pure-valued-badger.ngrok-free.app graphql_api:4000
+    command: http --domain=macaque-clever-gator.ngrok-free.app graphql_api:4000
     env_file:
       - ./graphql_api/.env
 
