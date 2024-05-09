@@ -13,6 +13,7 @@ gem "bunny"
 gem "graphql"
 gem "httparty"
 gem "jwt"
+gem "stripe"
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"

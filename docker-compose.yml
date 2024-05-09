@@ -42,6 +42,7 @@ services:
   
   graphql_api:
     image: ruby:3.2.2
+    container_name: graphql_api
     command: bash -c "cd /app && rm -rf tmp/pids && bin/setup && rails s -b 0.0.0.0 -p 4000"
     ports:
       - "4000:4000"
@@ -52,6 +53,13 @@ services:
       - ./graphql_api/.env
     depends_on:
       - rest_api
+
+  ngrok:
+    image: ngrok/ngrok:alpine
+    container_name: ngrok
+    command: http --domain=pure-valued-badger.ngrok-free.app graphql_api:4000
+    env_file:
+      - ./graphql_api/.env
 
   web_postgres:
     image: postgres:latest
@@ -83,7 +91,7 @@ services:
 
   sneakers:
     image: ruby:3.2.2
-    command: bash -c "cd /app && WORKERS=PolicyWorker rake sneakers:run"
+    command: bash -c "cd /app && WORKERS=PolicyWorker,PaymentWorker rake sneakers:run"
     volumes:
       - ./rest_api:/app
       - rubygems:/usr/local/bundle
