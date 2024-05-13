@@ -5,8 +5,6 @@ module Mutations
     field :result, String, null: false
 
     def resolve(payment_data:)
-      p payment_data
-
       queue = Bunny.new(hostname: "rabbitmq", port: "5672", vhost: "/", user: "guest", password: "guest").start
       channel = queue.create_channel
       exchange = channel.default_exchange

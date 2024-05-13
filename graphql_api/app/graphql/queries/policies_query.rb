@@ -5,9 +5,7 @@ module Queries
     def resolve
       response = HTTParty.get("http://rest_api:5000/",
         headers: {"Authorization" => "Bearer #{context[:current_user][:jwt]}"})
-      data = JSON.parse(response.body)
-      puts "Received data: #{data}"
-      data
+      JSON.parse(response.body)
     rescue JSON::ParserError => e
       puts "Error while parsing response: #{e.message}"
       []

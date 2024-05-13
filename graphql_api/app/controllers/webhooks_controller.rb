@@ -1,7 +1,7 @@
 class WebhooksController < ApplicationController
   skip_before_action :authenticate_request
 
-  ENDPOINT_SECRET = ENV.fetch("WEBHOOK_ENDPOINT_SECRET", nil)
+  ENDPOINT_SECRET = ENV.fetch("WEBHOOK_ENDPOINT_SECRET")
 
   def update
     payload = request.body.read

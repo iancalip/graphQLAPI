@@ -5,7 +5,6 @@ module Mutations
     field :result, String, null: false
 
     def resolve(policy:)
-      p policy
       queue = Bunny.new(hostname: "rabbitmq", port: "5672", vhost: "/", user: "guest", password: "guest")
       queue.start
       channel = queue.create_channel
