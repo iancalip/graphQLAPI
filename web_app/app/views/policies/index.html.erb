@@ -27,9 +27,13 @@
             <td><%= policy[:vehicle][:brand] %> <%= policy[:vehicle][:model] %></td>
             <td><%= policy[:issuedDate] %></td>
             <td><%= policy[:endCoverageDate] %></td>
-            <td id="status-<%= policy[:id] %>"><%= policy[:status] %></td>
+            <td><%= policy[:status] %></td>
             <td style="max-width: 200px; overflow: hidden;">
-              <a href="<%= policy[:paymentLink] %>" target="_blank"><%= policy[:paymentLink] %></a>
+              <% if policy[:status] == 'active' %>
+                Paid
+              <% else %>
+                <a href="<%= policy[:paymentLink] %>" target="_blank"><%= policy[:paymentLink] %></a>
+              <% end %>
             </td>
           </tr>
         <% end %>
